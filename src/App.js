@@ -1,5 +1,5 @@
 import React from "react";
-import Catalog from "./comp/Catalog";
+import Home from "./comp/Home";
 import DetailTovar from "./comp/DetailTovar";
 import Search from "./comp/Search";
 import User from "./comp/User";
@@ -19,7 +19,7 @@ function App() {
         <nav>
           <ul>
             <li>
-              <Link to="/">Каталог товаров</Link>
+              <Link to="/">Главная</Link>
             </li>
 
             <li>
@@ -40,8 +40,8 @@ function App() {
           <Route path="/shopping" element={<Shopping />}>
             <Shopping />
           </Route>
-          <Route path="/" element={<Catalog />}>
-            <Catalog />
+          <Route path="/" element={<Home />}>
+            <Home />
           </Route>
         </Switch>
       </div>
