@@ -4,6 +4,7 @@ import DetailTovar from "./comp/DetailTovar";
 import Search from "./comp/Search";
 import User from "./comp/User";
 import Shopping from './comp/Shopping'
+import SnapshotFirebase from './comp/SnapshotFirebase'
 import {
   BrowserRouter as Router,
   Switch,
@@ -28,6 +29,9 @@ function App() {
             <li>
               <Link to="/shopping">Корзина</Link>
             </li>
+            <li>
+              <Link to="/add">add product</Link>
+            </li>
           </ul>
         </nav>
 
@@ -39,6 +43,13 @@ function App() {
           </Route>
           <Route path="/shopping" element={<Shopping />}>
             <Shopping />
+          </Route>
+          <Route path="/add" element={<SnapshotFirebase />}>
+            <SnapshotFirebase />
+          </Route>
+          <Route path="/product/:id" element={<DetailTovar />}>
+
+            <DetailTovar />
           </Route>
           <Route path="/" element={<Home />}>
             <Home />
