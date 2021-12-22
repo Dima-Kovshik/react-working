@@ -1,23 +1,30 @@
 import React, { useState, useEffect } from "react";
 import firebase from "./firebase";
 import CatalogItem from "./CatalogItem";
+import { doc, QuerySnapshot } from "firebase/firestore";
 
 export default function Catalog() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const ref = firebase.firestore().collection('products');
 
   function getProducts() {
-    setLoading(true);
-    ref.onSnapshot((querySnapshot) => {
-      const items = [];
+
+    var test = [];
+    firebase.firestore().collection('products').get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        items.push(doc.data());
-      });
-      setProducts(items);
+        test.push({
+          id: doc.id,
+          name: doc.data().name,
+          description: doc.data().description,
+          price: doc.data().price,
+        })
+      })
+      setProducts(test);
       setLoading(false);
     });
+    return test;
+
   }
 
   useEffect(() => {
@@ -27,15 +34,17 @@ export default function Catalog() {
   if (loading) {
     return <h1>Идёт загрузка...</h1>
   }
+
+
   return (
     <div className="pos">
 
+      {products.map(product =>
 
-      {products.map((product) => (
+        <CatalogItem key={product.id} item={product} />
 
-        <CatalogItem name={product.name} price={product.price} id={product.id} />
+      )}
 
-      ))}
     </div>
 
   )
