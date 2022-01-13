@@ -7,9 +7,7 @@ export default function Catalog() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-
   function getProducts() {
-
     var test = [];
     firebase.firestore().collection('products').get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -24,7 +22,6 @@ export default function Catalog() {
       setLoading(false);
     });
     return test;
-
   }
 
   useEffect(() => {

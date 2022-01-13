@@ -1,8 +1,13 @@
 import React, { useState, useEffect, Fragment } from "react";
 import firebase from "./firebase";
-import { v4 as uuidv4 } from "uuid";
+import {
+  BrowserRouter as Router,
+  Link
+} from "react-router-dom";
 
 function SnapshotFirebase() {
+
+  /*
   const [products, setSchools] = useState([]);
   const [loading, setLoading] = useState(false);
   const [name, setTitle] = useState("");
@@ -10,7 +15,7 @@ function SnapshotFirebase() {
 
   const ref = firebase.firestore().collection("products");
 
-  //REALTIME GET FUNCTION
+
   function getSchools() {
     setLoading(true);
     ref.onSnapshot((querySnapshot) => {
@@ -25,10 +30,10 @@ function SnapshotFirebase() {
 
   useEffect(() => {
     getSchools();
-    // eslint-disable-next-line
+
   }, []);
 
-  // ADD FUNCTION
+
   function addSchool(newSchool) {
     ref
 
@@ -38,7 +43,7 @@ function SnapshotFirebase() {
       });
   }
 
-  //DELETE FUNCTION
+
   function deleteSchool(school) {
     ref
       .doc(school.id)
@@ -48,7 +53,7 @@ function SnapshotFirebase() {
       });
   }
 
-  // EDIT FUNCTION
+
   function editSchool(updateSchool) {
     setLoading();
     ref
@@ -57,38 +62,87 @@ function SnapshotFirebase() {
       .catch((err) => {
         console.error(err);
       });
+  } */
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [name, setTitle] = useState("");
+  const [description, setDesc] = useState("");
+  const [price, setPrice] = useState("");
+
+  function getProducts() {
+    var test = [];
+    firebase.firestore().collection('products').get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        test.push({
+          id: doc.id,
+          name: doc.data().name,
+          description: doc.data().description,
+          price: doc.data().price,
+        })
+      })
+      setProducts(test);
+      setLoading(false);
+    });
+    return test;
+  }
+  useEffect(() => {
+    getProducts();
+  }, []);
+  if (loading) {
+    return <h1>Идёт загрузка...</h1>
+  }
+
+  function addProduct() {
+    firebase.firestore().collection('products').add({
+      name: name,
+      price: price,
+      description: description
+    });
+    getProducts();
+  }
+
+  function deleteProduct(products) {
+    firebase.firestore().collection('products').doc(products.id).delete().then(() => {
+      getProducts();
+    });
   }
 
   return (
     <Fragment>
-      <h1>Schools (SNAPSHOT)</h1>
+      <h1>Работа с товарами</h1>
       <div className="inputBox">
-        <h3>Add New</h3>
+        <h3>Добаить товар</h3>
+        <p>Название товара</p>
         <input
           type="text"
           value={name}
           onChange={(e) => setTitle(e.target.value)}
         />
+        <p>Стоимость товара</p>
+        <input
+          type="text"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+        <p>Описание товара</p>
         <textarea value={description} onChange={(e) => setDesc(e.target.value)} />
-        <button onClick={() => addSchool({ name, description })}>
-          Submit
+        <button onClick={() => addProduct({ name, description, price })}>
+          Добавить
         </button>
       </div>
       <hr />
 
-      {products.map((school) => (
-        <div className="school" key={school.id}>
-          <h2>{school.name}</h2>
-          <p>{school.description}</p>
+      {products.map((products) => (
+        <div>
+          <h2>{products.name}</h2>
+          <p>{products.price}</p>
+
           <div>
-            <button onClick={() => deleteSchool(school)}>X</button>
-            <button
-              onClick={() =>
-                editSchool({ name, description, id: school.id })
-              }
-            >
-              Edit
-            </button>
+            <button onClick={() => deleteProduct(products)}>Удалить</button>
+
+            <Link to={`/edit/${products.id}`}>Редактировать</Link>
+
           </div>
         </div>
       ))}

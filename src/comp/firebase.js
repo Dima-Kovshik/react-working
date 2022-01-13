@@ -1,6 +1,8 @@
 import firebase from "firebase/compat";
 import "firebase/firestore";
-
+import "firebase/auth"
+import { createContext } from "react";
+import { test } from "./signIn";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBNZ7ffwmAf4Bjw1AwgJ8lLrdpWAhOX7G0",
@@ -13,5 +15,8 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
+export const ContextGlobal = createContext(null);
+export const auth1 = firebase.auth();
 
 export default firebase;
