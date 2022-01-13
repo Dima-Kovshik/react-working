@@ -3,11 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import firebase, { auth, ContextGlobal } from './comp/firebase';
+import { auth1 } from './comp/firebase';
+import { test } from './comp/signIn'
 
 ReactDOM.render(
-  <React.StrictMode>
+
+  <ContextGlobal.Provider
+    value={{
+      firebase,
+      auth1,
+      test
+    }}>
     <App />
-  </React.StrictMode>,
+  </ContextGlobal.Provider>,
   document.getElementById('root')
 );
 
