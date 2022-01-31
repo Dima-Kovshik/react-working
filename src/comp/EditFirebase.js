@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import firebase from "./firebase";
-import { Redirect, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 
 export default function EditFirebase() {
@@ -29,7 +29,7 @@ export default function EditFirebase() {
   }
   useEffect(() => {
     getProducts();
-  }, []);
+  });
   if (loading) {
     return <h1>Идёт загрузка...</h1>
   }

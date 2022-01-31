@@ -1,7 +1,6 @@
-import { signInWithPopup } from "firebase/auth";
-import React, { useState, useEffect, Fragment } from "react";
-import { useContext } from "react";
-import firebase, { Context } from "./firebase";
+import React, { useState } from "react";
+
+import firebase from "./firebase";
 
 function SignUp() {
 

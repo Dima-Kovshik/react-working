@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import firebase from "./firebase";
 import CatalogItem from "./CatalogItem";
-import { doc, QuerySnapshot } from "firebase/firestore";
+
 
 export default function Catalog() {
   const [products, setProducts] = useState([]);

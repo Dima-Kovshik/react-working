@@ -1,19 +1,15 @@
 
 import React, { useState } from "react";
-import { useContext } from "react";
-import firebase, { ContextGlobal } from "./firebase";
+import firebase from "./firebase";
 import "firebase/compat/auth"
-import { useAuthState } from "react-firebase-hooks/auth";
 
-export var test = [];
+export var test = {};
 
 
 const SignIn = () => {
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
 
-  const { auth1 } = useContext(ContextGlobal);
-  const { user } = useAuthState(auth1);
 
 
 
@@ -23,14 +19,14 @@ const SignIn = () => {
       .then(async (resp) => {
         await firebase.firestore().collection('users').doc(resp.user.uid)
           .get().then((doc) => {
-            test.push({
+            test = {
               id: doc.id,
               firstName: doc.data().first_name,
               lastName: doc.data().last_name,
-            })
+            }
 
           })
-
+        console.log(test);
       })
   }
 

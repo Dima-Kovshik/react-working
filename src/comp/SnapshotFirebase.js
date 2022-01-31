@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import firebase from "./firebase";
 import {
-  BrowserRouter as Router,
   Link
 } from "react-router-dom";
 

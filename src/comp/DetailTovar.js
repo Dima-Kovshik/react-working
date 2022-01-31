@@ -1,5 +1,3 @@
-
-import { matchPath } from "react-router";
 import firebase from "./firebase";
 import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
@@ -33,7 +31,7 @@ export default function DetailTovar() {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  });
 
   if (loading) {
     return <h1>Идёт загрузка...</h1>
