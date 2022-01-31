@@ -3,20 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import firebase, { auth, ContextGlobal } from './comp/firebase';
-import { auth1 } from './comp/firebase';
-import { test } from './comp/signIn'
+
+
+
+import { Provider } from 'react-redux';
+import { createStore } from "redux";
+
+import rootReducer from "./comp/indexUser";
+
+const store = createStore(rootReducer);
 
 ReactDOM.render(
 
-  <ContextGlobal.Provider
-    value={{
-      firebase,
-      auth1,
-      test
-    }}>
+  <Provider store={store}>
     <App />
-  </ContextGlobal.Provider>,
+  </Provider>,
   document.getElementById('root')
 );
 
